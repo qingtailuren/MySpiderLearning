@@ -6,7 +6,7 @@
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 from test3.items import ImforItem
 from test3.items import MyImageItem
-
+import scrapy
 
 
 class TitleAndPricePipeline(object):
@@ -21,5 +21,6 @@ class TitleAndPricePipeline(object):
 class MyImagesPipeline(object):
     def process_item(self, item, spider):
         if isinstance(item, MyImageItem):
-
+            for url in item['urls']:
+                yield scrapy.Request(url=url)
         return item
